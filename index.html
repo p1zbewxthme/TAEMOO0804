@@ -1,0 +1,48 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3c8d2"><title>백석기계공업고등학교 탐험</title><link rel="stylesheet" href="style.css"></head><body><main id="app">
+<section id="startScreen" class="screen active"><img class="cover" src="assets/start.jpg"><div class="shade"></div><div class="panel startbox"><small>MOUSE PIXEL ADVENTURE</small><h1>백석기계공업고등학교 탐험</h1><p>교정을 돌아다니며 분실한 물건을 찾으세요.</p><button id="startBtn" class="btn primary">START</button></div></section>
+<section id="selectScreen" class="screen"><div class="selectbg"></div><div class="selectwrap"><div class="panel heading"><small>CHOOSE YOUR CHARACTER</small><h2>캐릭터 선택</h2><p>캐릭터마다 찾아야 할 물건이 다릅니다.</p></div><div class="cards">
+<button class="panel charcard" data-char="gitaeha"><img src="assets/characters/gitaeha.png"><div><h3>기태하</h3><p>붓 · 이젤 · 삽</p></div></button>
+<button class="panel charcard" data-char="kangmugyeol"><img src="assets/characters/kangmugyeol.png"><div><h3>강무결</h3><p>담뱃갑 · 구겨진 종이 · 나이프</p></div></button></div><button id="backBtn" class="linkbtn">← 시작 화면</button></div></section>
+<section id="gameScreen" class="screen game"><div class="hud panel"><div class="who"><img id="portrait"><div><b id="charName"></b><span id="stageLabel">STAGE 1 · 학교 교정</span></div></div><div class="hp"><span>체력</span><div class="hpbar"><i id="hpFill"></i></div><b id="hpText">100</b></div><div class="stats"><span>남은 시간 <b id="timeText">90</b>초</span><span>수집 <b id="countText">0</b>/3</span></div></div>
+<div id="viewport" class="viewport"><div id="world" class="world stage-1"><div class="stage-backdrop"></div><div class="farbuildings"></div><div class="trees"></div><div class="walkway"></div><div id="petals"></div><div id="objects"></div><div id="npcs"></div><div id="player" class="actor player"><img id="playerImg"><i></i></div></div><div id="guide" class="guide panel">교정의 왼쪽과 오른쪽을 클릭해 이동하세요.</div><div id="toast" class="toast panel"></div></div>
+<div class="objectives panel"><b>찾아야 할 물건</b><div id="objectiveList"></div></div><button id="quitBtn" class="linkbtn light">캐릭터 다시 고르기</button></section>
+<section id="stage3Screen" class="screen stage3-screen">
+  <div class="stage3-head panel">
+    <div><small>STAGE 3</small><h2>미술실 탐색</h2></div>
+    <p>미술실 곳곳을 탐색해 보세요.<b id="stage3ClickCount" class="hidden" aria-hidden="true">0</b></p>
+  </div>
+  <div class="stage3-scroll" id="stage3Scroll">
+    <div class="stage3-room" id="stage3Room">
+      <img src="assets/stage3/art-room.png" alt="학교 미술실">
+      <button class="stage3-hotspot hs-window-left" data-spot="window" data-title="창가" aria-label="왼쪽 창가 조사"></button>
+      <button class="stage3-hotspot hs-window-right" data-spot="blind" data-title="블라인드" aria-label="오른쪽 블라인드 조사"></button>
+      <button class="stage3-hotspot hs-desk-left" data-spot="desk" data-title="작업 책상" aria-label="왼쪽 작업 책상 조사"></button>
+      <button class="stage3-hotspot hs-stool-left" data-spot="stool" data-title="의자와 이젤" aria-label="왼쪽 의자와 이젤 조사"></button>
+      <button class="stage3-hotspot hs-easel-center" data-spot="centerEasel" data-title="중앙 이젤" aria-label="중앙 이젤 조사"></button>
+      <button class="stage3-hotspot hs-table-right" data-spot="rightTable" data-title="오른쪽 작업대" aria-label="오른쪽 작업대 조사"></button>
+      <button class="stage3-hotspot hs-easel-sunflower" data-spot="sunflower" data-title="해바라기 그림" aria-label="해바라기 그림 이젤 조사"></button>
+      <button class="stage3-hotspot hs-cabinet" data-spot="cabinet" data-title="수납장" aria-label="수납장 조사"></button>
+      <button class="stage3-hotspot hs-cart" data-spot="cart" data-title="도구 카트" aria-label="오른쪽 도구 카트 조사"></button>
+      <div id="stage3Npc" class="stage3-npc" aria-hidden="true"><img src="assets/stage3/kangyunhye-transparent.png" alt="강윤혜"><span>강윤혜</span></div>
+    </div>
+  </div>
+  <div id="stage3Toast" class="stage3-toast panel"></div>
+  <div class="stage3-nav" aria-label="미술실 좌우 탐색">
+    <button id="stage3LeftBtn" class="stage3-arrow panel" type="button" aria-label="미술실의 왼쪽을 탐색하기">←</button>
+    <button id="stage3RightBtn" class="stage3-arrow panel" type="button" aria-label="미술실의 오른쪽을 탐색하기">→</button>
+  </div>
+  <button id="stage3ExitBtn" class="linkbtn light stage3-exit">캐릭터 선택으로 돌아가기</button>
+</section>
+<div id="dialogue" class="overlay"><div class="dialogue panel"><div class="speaker"><img id="speakerImg"><div><small>NPC EVENT</small><h3 id="speakerName"></h3></div></div><p id="dialogueText"></p><div id="choices" class="choices"></div><div class="dialogue-actions"><button id="skipDialogue" class="btn skip">SKIP</button><button id="nextDialogue" class="btn primary">다음</button></div></div></div>
+<div id="itemMessage" class="overlay"><div class="messagebox panel" id="itemMessageBox" role="button" tabindex="0"><small>FOUND ITEM</small><h3 id="itemMessageTitle"></h3><p id="itemMessageText"></p><span class="tapnote">문구를 클릭하면 계속됩니다.</span></div></div>
+<div id="stage3Message" class="overlay"><div class="messagebox panel stage3-messagebox" id="stage3MessageBox" role="button" tabindex="0"><small>ART ROOM SEARCH</small><h3 id="stage3MessageTitle"></h3><div id="stage3MessageSpeaker" class="speaker stage3-message-speaker hidden"><img id="stage3SpeakerImg" alt="캐릭터"><div><small>SEARCH EVENT</small><h3 id="stage3SpeakerName"></h3></div></div><img id="stage3MessageImage" class="stage3-message-image hidden" alt="조사 결과 이미지"><p id="stage3MessageText" class="stage3-message-text"></p><div id="stage3MessageChoices" class="stage3-message-choices"></div><span id="stage3TapNote" class="tapnote">문구를 클릭하면 계속됩니다.</span></div></div>
+
+<div id="stage3Ending" class="overlay stage3-ending-overlay" aria-hidden="true"><article class="stage3-ending panel"><small>STAGE 3 ENDING</small><h2 id="stage3EndingTitle"></h2><div id="stage3EndingText" class="stage3-ending-text"></div><div class="stage3-ending-actions"><button id="stage3EndingClose" class="btn primary stage3-the-end" type="button">The End</button><button id="stage3EndingHeart" class="stage3-ending-heart" type="button" aria-label="비밀 편지 열기"><img src="assets/ui/heart.png" alt="하트"></button></div><form id="stage3EndingPwForm" class="stage3-ending-password hidden"><label for="stage3EndingPwInput">비밀번호를 입력하세요.</label><div><input id="stage3EndingPwInput" type="password" inputmode="numeric" maxlength="4" placeholder="4자리"><button class="btn" type="submit">확인</button></div><p id="stage3EndingPwError"></p></form><article id="stage3FinalLetter" class="stage3-final-letter hidden"><b>0427</b><h3>To. 나의 행성에게</h3><div class="stage3-final-letter-body"><p>완전한 공전 두 바퀴를 이룩한 지금은<br>숨을 쉴 때마다 시선을 돌릴 때마다 도처에 네가 있다.</p><p>나의 일상을 빼곡하게 채우고 있는 너에게<br>매 순간 사랑과 감사함을 느껴.</p><p>앞으로도 너의 궤도를 충실히 운행하는 위성으로서<br>네 곁에 머물고 싶다.</p><p>이 지난한 여름을, 가을을, 다가올 겨울을 함께 보내고 싶다.</p><p>나의 모든 하루에 함께해 줘.<br>감히 부탁할게.</p><p>사랑해.</p><p class="stage3-final-letter-date">2026.08.04.</p><p class="stage3-final-letter-sign">너의 위성이</p></div></article></article></div>
+<div id="warningOverlay" class="overlay warning-overlay" aria-hidden="true"><div id="warningMessageBox" class="warningbox" role="button" tabindex="0" aria-label="경고 메시지를 닫고 게임으로 돌아가기"><h2>WARNING!</h2><p>위험한 기억입니다</p><strong>일상으로 돌아가세요</strong><span>클릭하면 게임으로 돌아갑니다.</span></div></div>
+<audio id="bgmAudio" src="assets/audio/bgm.mp3" preload="auto" loop></audio>
+<audio id="stage3BgmAudio" src="assets/audio/stage3-bgm.mp3" preload="auto" loop></audio>
+<audio id="pickupAudio" src="assets/audio/pickup.mp3" preload="auto"></audio>
+<audio id="warningAudio" src="assets/audio/warning.mp3" preload="auto" loop></audio>
+<div id="result" class="overlay"><div class="result panel"><small id="resultBadge"></small><h2 id="resultTitle"></h2><p id="resultMsg"></p><button id="heartBtn" class="heart hidden"><img src="assets/ui/heart.png"></button><button id="nextStageCenterBtn" class="btn primary next-stage-center hidden">NEXT STAGE</button><form id="pwForm" class="hidden"><label>비밀번호를 입력하세요.</label><div><input id="pwInput" type="password" inputmode="numeric" maxlength="4" placeholder="4자리"><button class="btn">확인</button></div><p id="pwError"></p></form><article id="letter" class="letter hidden"><b>0427</b><h3>To. 내 토끼</h3><div id="letterText" class="letter-body"><p>공전 두 바퀴를 목전에 두고 있어.<br>지구가 일곱 번 자전하고 나면 우리의 공전도 한 획을 더하게 된다.<br>한 바퀴를 마치고 나니 또 한번의 공전은 이전보다 안정적이라는 느낌을 받아.<br>네 궤도에 익숙해진 탓일까.<br>우리의 중력이 더욱 강해졌음을 실감한다.</p><p>한여름 우리의 사랑은 더 깊어지고<br>내 하루의 모든 순간은 너를 위해 존재하는 것만 같다.</p><p>네 옆에서 보낼 가을과 겨울 그리고 또 봄 다시 한번 맞이할 여름을 위하여<br>치열하게 사랑할게.</p><p class="letter-sign">너의 강아지가</p><p class="letter-date">2026.07.28.</p></div></article><div id="resultBtns"><button id="retryBtn" class="btn primary">다시 도전</button><button id="nextStageBtn" class="btn primary hidden">NEXT STAGE</button><button id="reselectBtn" class="btn">캐릭터 선택</button></div></div></div>
+
+</main><script src="game.js"></script></body></html>
